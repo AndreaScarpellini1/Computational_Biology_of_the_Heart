@@ -30,10 +30,16 @@ nsamples = length(gAmps(:,1)); % nsamples = 10
 %GCaL
 %Ritonavir Terapeutic value 
 EFTPC= 0.4369; %[μM]
-
+name_models={'M_1','M_2','M_3','M_4','M_5','M_6','M_7','M_8','M_9','M_10'};
+cont=0;
+settings.minIsqIni=Nstim*BCL/(1000*60);
+settings.BCL=BCL;
+for  i =1:1:10
+    [t,y,currents]=main2019_ORd_MMChA(gAmps(i,:),settings,[],[],1);
+    save(['ORm_Output/',name_models{i},'_without_drug'],'t','y','currents');
+end 
 %%
 moltiplicative_coeffiecients=[1.0, 2.0, 10, 100];
-name_models={'M_1','M_2','M_3','M_4','M_5','M_6','M_7','M_8','M_9','M_10'};
 name_molt_coeff={'1','2','10','100'};
 index=0;
 
@@ -74,6 +80,4 @@ for k =moltiplicative_coeffiecients
         fprintf('############################################################\n')
        
     end
-    
-   
 end 
