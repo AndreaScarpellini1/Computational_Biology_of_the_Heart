@@ -1,5 +1,6 @@
 function t=measure_adp90(ap,o)
-%input: Action Pontential vector (length(24003)
+%input: ap:Action Pontential vector (length(24003)
+%       o :Option if you want to plot ==1
 %output: ADP90
 
     [y1,t1]=max(ap(1:8001));
@@ -16,6 +17,8 @@ function t=measure_adp90(ap,o)
     N_indexes=[t1,t2+8001,t3+16003];
 
     t=abs(M_indexes-N_indexes)*0.1000;
+
+    
     if (o==1)
         figure()
         plot(ap)
