@@ -20,6 +20,6 @@ for  i=5:5:50
     hold on
     grid on 
     box  on 
-    title("no drug influenced APs")
+    title("No Drug Influenced APs")
 end 
 
