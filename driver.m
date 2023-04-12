@@ -31,6 +31,7 @@ nsamples = length(gAmps(:,1)); % nsamples = 10
 %Ritonavir Terapeutic value 
 EFTPC= 0.4369; %[μM]
 name_models={'M_1','M_2','M_3','M_4','M_5','M_6','M_7','M_8','M_9','M_10'};
+
 cont=0;
 settings.minIsqIni=Nstim*BCL/(1000*60);
 settings.BCL=BCL;
@@ -54,30 +55,30 @@ for k =moltiplicative_coeffiecients
     BFKr=1.0/(1+(IC/5.157));
     BFCaL=1.0/(1+(IC/8.228)^1.3);
     
-    
-  
-    tstart=tic;
-    cont=0;
-    settings.minIsqIni=Nstim*BCL/(1000*60);
-    settings.BCL=BCL;
+   
     for ii=1:nsamples
-    
         %Changing the value of the gAmps according to the drug effect. 
         gAmps_Drug=gAmps(ii,:);
         gAmps_Drug(7)=gAmps_Drug(7)*BFNa;  %Na
         gAmps_Drug(8)=gAmps_Drug(7)*BFNaL; %NaL
         gAmps_Drug(5)=gAmps_Drug(5)*BFKr;  %Kr
         gAmps_Drug(1)=gAmps_Drug(1)*BFCaL; %CaL
-    
+
+        %function ---------------------------------------------------------
+        tstart=tic;
+        cont=0;
+        settings.minIsqIni=Nstim*BCL/(1000*60);
+        settings.BCL=BCL;
         [t,y,currents]=main2019_ORd_MMChA(gAmps_Drug,settings,[],[],1);
         %t --> time, resolution of 24003
         %y(1) --> transmembrane potential 
-    
+        %------------------------------------------------------------------
+        
+        %Saving
         save(['ORm_Output/',name_models{ii},'_',name_molt_coeff{index},'xEFTPC.mat'],'t','y','currents');
         fprintf([name_models{ii},'of coeff ',name_molt_coeff{index},' completed!']);
         telapsed = toc(tstart);
         fprintf('-Execution time: %f\n',telapsed);
         fprintf('############################################################\n')
-       
     end
 end 

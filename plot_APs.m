@@ -7,44 +7,20 @@ load mask.mat
 list = dir('ORm_Output');
 list(1)=[];
 list(1)=[];
-%% Separating the models 
-for index=1:5
-    M10(index) =load(['ORm_Output\',list(index).name]);
-end
 
-for index=6:10
-    M1(index-5) =load(['ORm_Output\',list(index).name]);
+for i=1:50
+    M_list(i)=load(['ORm_Output\',list(i).name]);
 end
-
-for index=11:15
-    M2(index-10) =load(['ORm_Output\',list(index).name]);
+for i=1:50  
+    M_list(i).('name')=list(i).name;
 end
-for index=16:20
-    M3(index-15) =load(['ORm_Output\',list(index).name]);
-end
-for index=21:25
-    M4(index-20) =load(['ORm_Output\',list(index).name]);
-end
-for index=26:30
-    M5(index-25) =load(['ORm_Output\',list(index).name]);
-end
-for index=31:35
-    M6(index-30) =load(['ORm_Output\',list(index).name]);
-end
-for index=36:40
-    M7(index-35) =load(['ORm_Output\',list(index).name]);
-end
-for index=41:45
-    M8(index-40) =load(['ORm_Output\',list(index).name]);
-end
-for index=46:50
-    M9(index-45) =load(['ORm_Output\',list(index).name]);
-end
-
 %% PLOT NO DRUG ACTION POTENTIALS 
-M_list={M1,M2,M3,M4,M5,M6,M7,M8,M9,M10};
-for  i=1:1:10
-
+for  i=5:5:50
+    plot(M_list(i).t,M_list(i).y(:,1))
+    hold on
+    grid on 
+    box  on 
+    title("no drug influenced APs")
 end 
 
 %% PLOT DIFFERENT MODELS
