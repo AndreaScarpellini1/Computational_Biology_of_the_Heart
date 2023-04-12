@@ -44,7 +44,7 @@ for k =moltiplicative_coeffiecients
     
     %Blocking factor for Na, NaL, Kr, CaL
     BFNa=1.0/(1+(IC/27.96163));
-    BFNaL=1.0/(1+(IC/7.175));
+    BFNaL=1.0/(1+(IC/7.175)^0.7);
     BFKr=1.0/(1+(IC/5.157));
     BFCaL=1.0/(1+(IC/8.228)^1.3);
     
