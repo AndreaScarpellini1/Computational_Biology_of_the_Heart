@@ -1,8 +1,7 @@
 clc
 close all 
 clear 
-%% AP without drugs 
-load mask.mat
+
 %% Import output 
 list = dir('ORm_Output');
 list(1)=[];
@@ -35,4 +34,11 @@ for i=1:5:46
     end
     legend("100x","10x","1x","2x","N")
 end 
+
+
+
+
+
+
+
 
