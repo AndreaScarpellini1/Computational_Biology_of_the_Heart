@@ -1,7 +1,10 @@
 function t=measure_adp90(ap,o)
-%input: ap:Action Pontential vector (length(24003)
+%The ADP90 is a measurement of the action potential duration at 90%
+%repolarization.
+
+%Input: ap:Action Pontential vector (length(24003)
 %       o :Option if you want to plot ==1
-%output: ADP90
+%Output: ADP90
 
     [y1,t1]=max(ap(1:8001));
     [y2,t2]=max(ap(8001:16002));
@@ -9,8 +12,10 @@ function t=measure_adp90(ap,o)
     
     M_indexes=[t1,t2+8001,t3+16003];
     M_values=[y1,y2,y3];
-    
-    N_values=M_values*0.90;
+
+
+    rest_pot=-87.5;
+    N_values=M_values-abs(M_values-rest_pot)*0.90;
     [y1,t1]=min(abs(ap(1    : 8001)-N_values(1)));
     [y2,t2]=min(abs(ap(8001 :16002)-N_values(2)));
     [y3,t3]=min(abs(ap(16003:24003)-N_values(3)));
