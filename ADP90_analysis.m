@@ -16,8 +16,8 @@ end
 %we eliminate the sub #1
 M_list(6:1:10)=[];
 %% measurement of ADP 90
-for i =1:1:45
-    ADP_90(i,:)=measure_adp90(M_list(i).y(:,1),0);
+for i =1:1:2
+    ADP_90(i,:)=measure_adp90(M_list(i).y(:,1),1);
 end
 %% BOXPLOTs
 ADP_90_N=ADP_90(5:5:45,:); % no drug
