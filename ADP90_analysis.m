@@ -6,25 +6,23 @@ list = dir('ORm_Output');
 list(1)=[];
 list(1)=[];
 
-for i=1:50
+for i=1:length(list)
     M_list(i)=load(['ORm_Output\',list(i).name]);
 end
-for i=1:50  
+for i=1:length(list)  
     M_list(i).('name')=list(i).name;
 end
 
-%we eliminate the sub #1
-M_list(6:1:10)=[];
 %% measurement of ADP 90
-for i =1:1:2
-    ADP_90(i,:)=measure_adp90(M_list(i).y(:,1),1);
+for i =1:1:length(M_list)
+    ADP_90(i,:)=measure_adp90(M_list(i).y(:,1),0);
 end
 %% BOXPLOTs
-ADP_90_N=ADP_90(5:5:45,:); % no drug
-ADP_90_100xdose=ADP_90(1:5:41,:); %100x dose 
-ADP_90_10xdose =ADP_90(2:5:42,:);
-ADP_90_1Xdose = ADP_90(3:5:43,:);
-ADP_90_2xdose = ADP_90(4:5:44,:);
+ADP_90_N=ADP_90(5:5:length(M_list),:); % no drug
+ADP_90_100xdose=ADP_90(1:5:46,:); %100x dose 
+ADP_90_10xdose =ADP_90(2:5:47,:);
+ADP_90_1Xdose = ADP_90(3:5:48,:);
+ADP_90_2xdose = ADP_90(4:5:49,:);
 
 ADP_list={ADP_90_N,...
           ADP_90_1Xdose,...
@@ -37,11 +35,12 @@ titles={'ADP 90 - No Drug',...
         'ADP 90 - 2x Drug',...
         'ADP 90 - 10x dose',...
         'ADP 90 - 100x dose'};
-%% Boxplot ADP 90 
+
+%Taking the third AP
 figure()
 for i=1:1:5
     subplot(1,5,i)
-    boxplot(ADP_list{i}(:,1))
+    boxplot(ADP_list{i}(:,3))
     title(titles{i})
     grid on 
     box  on 
@@ -49,20 +48,64 @@ for i=1:1:5
 end 
 %% Mean and std ADP 90
 figure()
-plot([mean(ADP_list{1,1}(:,1)), ...
-      mean(ADP_list{1,2}(:,1)), ...
-      mean(ADP_list{1,3}(:,1)) ...
-      mean(ADP_list{1,4}(:,1)) ...
-      mean(ADP_list{1,5}(:,1))],'--x',linewidth=2);
+bar([ mean(ADP_list{1,1}(:,3)), ...
+      mean(ADP_list{1,2}(:,3)), ...
+      mean(ADP_list{1,3}(:,3)) ...
+      mean(ADP_list{1,4}(:,3)) ...
+      mean(ADP_list{1,5}(:,3))]);
+
 title("Mean & std ADP90")
 hold on 
 grid on 
 box on 
-plot([std(ADP_list{1,1}(:,1)), ...
-      std(ADP_list{1,2}(:,1)), ...
-      std(ADP_list{1,3}(:,1)) ...
-      std(ADP_list{1,4}(:,1)) ...
-      std(ADP_list{1,5}(:,1))],'--o',linewidth=2);
+bar([std(ADP_list{1,1}(:,3)), ...
+      std(ADP_list{1,2}(:,3)), ...
+      std(ADP_list{1,3}(:,3)) ...
+      std(ADP_list{1,4}(:,3)) ...
+      std(ADP_list{1,5}(:,3))]);
 set(gca,'xtick',1:5,'xticklabel',{'N','1x','2x','10x','100x'})
-legend("Mean","std");
+legend("Mean","std",'Location','northwest');
 
+%% Differences in % between the mean values 
+ 
+fprintf("\n ADP90 differences in percentual between the mean values: \n ");
+
+fprintf('\n n-1x:')
+fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,2}(:,3)))...
+                          /abs(mean(ADP_list{1,1}(:,3)))*100);
+fprintf('\n n-2x:')
+fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,3}(:,3)))...
+                          /abs(mean(ADP_list{1,1}(:,3)))*100);
+fprintf('\n n-10x:')
+fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,4}(:,3)))...
+                          /abs(mean(ADP_list{1,1}(:,3)))*100);
+fprintf('\n n-100x:')
+fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,5}(:,3)))...
+                          /abs(mean(ADP_list{1,1}(:,3)))*100);
+fprintf("########################\n")
+
+%% Differences whithin the single subject 
+fprintf('\n_________________________________________________________\n')
+fprintf('\n Differences whithin the single subject & arrythmic risk \n')
+dose={'1x','2x','10x','100x'};
+for j= 2:1:5 %for every dose
+    for i =1:1:10   %for every subject
+
+        res= abs(ADP_list{1,1}(i,3)-ADP_list{1,j}(i,3))/abs(ADP_list{1,1}(i,3))*100;
+        fprintf('\nFor subject %g, and dose %s:, \n',[i,dose{j-1}])
+        fprintf(' %4.3f%% \n', res);
+        
+        %check the thershold
+        if(res>25 || res==25)
+            m(j-1,i)=1;
+        else  
+            m(j-1,i)=0;
+        end 
+    end 
+     %Write the arrythmic risk ratio 
+        fprintf(['\nThe arrythmic risk ratio is %4.2f' ...
+            '\n--------------------------------' ...
+            '\n--------------------------------'],...
+            sum(m(j-1,:)==1)/length(m(j-1,:)))
+end 
+%%
