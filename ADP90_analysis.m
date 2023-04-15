@@ -66,23 +66,6 @@ bar([std(ADP_list{1,1}(:,3)), ...
 set(gca,'xtick',1:5,'xticklabel',{'N','1x','2x','10x','100x'})
 legend("Mean","std",'Location','northwest');
 
-%% Differences in % between the mean values 
- 
-fprintf("\n ADP90 differences in percentual between the mean values: \n ");
-
-fprintf('\n n-1x:')
-fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,2}(:,3)))...
-                          /abs(mean(ADP_list{1,1}(:,3)))*100);
-fprintf('\n n-2x:')
-fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,3}(:,3)))...
-                          /abs(mean(ADP_list{1,1}(:,3)))*100);
-fprintf('\n n-10x:')
-fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,4}(:,3)))...
-                          /abs(mean(ADP_list{1,1}(:,3)))*100);
-fprintf('\n n-100x:')
-fprintf(' %4.3f%% \n',abs(mean(ADP_list{1,1}(:,3))-mean(ADP_list{1,5}(:,3)))...
-                          /abs(mean(ADP_list{1,1}(:,3)))*100);
-fprintf("########################\n")
 
 %% Differences whithin the single subject 
 fprintf('\n_________________________________________________________\n')
@@ -91,12 +74,14 @@ dose={'1x','2x','10x','100x'};
 for j= 2:1:5 %for every dose
     for i =1:1:10   %for every subject
 
-        res= abs(ADP_list{1,1}(i,3)-ADP_list{1,j}(i,3))/abs(ADP_list{1,1}(i,3))*100;
-        fprintf('\nFor subject %g, and dose %s:, \n',[i,dose{j-1}])
-        fprintf(' %4.3f%% \n', res);
+        res1 = abs(ADP_list{1,j}(i,1)-ADP_list{1,j}(i,2))/abs(ADP_list{1,j}(i,1))*100;
+        res2 = abs(ADP_list{1,j}(i,2)-ADP_list{1,j}(i,3))/abs(ADP_list{1,j}(i,2))*100;
+
+        fprintf('\nFor subject %g, and dose %s:, \n', [i,dose{j-1}])
+        fprintf('AP1-AP2: %4.3f%%, AP2-AP3:%4.3f%%  \n', [res1,res2]);
         
         %check the thershold
-        if(res>25 || res==25)
+        if((res1>25 || res1==25) || (res2>25 || res2==25))
             m(j-1,i)=1;
         else  
             m(j-1,i)=0;
@@ -104,8 +89,7 @@ for j= 2:1:5 %for every dose
     end 
      %Write the arrythmic risk ratio 
         fprintf(['\nThe arrythmic risk ratio is %4.2f' ...
-            '\n--------------------------------' ...
-            '\n--------------------------------'],...
+                 '\n================================='],...
             sum(m(j-1,:)==1)/length(m(j-1,:)))
 end 
 %%
