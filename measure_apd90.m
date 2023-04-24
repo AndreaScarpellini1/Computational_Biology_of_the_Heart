@@ -1,4 +1,4 @@
-function t=measure_adp90(ap,o)
+function t=measure_apd90(ap,o)
 %The ADP90 is a measurement of the action potential duration at 90%
 %repolarization.
 
