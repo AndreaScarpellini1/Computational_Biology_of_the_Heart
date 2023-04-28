@@ -2,7 +2,7 @@ clc
 close all 
 clear 
 
-%% Import output 
+%% Import Data 
 list = dir('ORm_Output');
 list(1)=[];
 list(1)=[];
