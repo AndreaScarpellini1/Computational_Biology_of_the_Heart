@@ -8,7 +8,7 @@ list(1)=[];
 list(1)=[];
 
 for i=1:50
-    M_list(i)=load(['ORm_Output\',list(i).name]);
+    M_list(i)=load(['ORm_Output/',list(i).name]);
 end
 for i=1:50  
     M_list(i).('name')=list(i).name;
@@ -30,13 +30,15 @@ for i=1:5:46
     index=index+1;
     figure(index)
     for j=0:1:4
-        plot(M_list(i+j).t,M_list(i+j).y(:,1),linewidth=1);
+        plot(M_list(i+j).t,M_list(i+j).y(:,1));
         hold on 
         grid on 
         title([s_name(index)])
     end
     legend("100x","10x","1x","2x","N")
+
     saveas(figure(index), ['Plots/',[s_name{index}],'.jpg'])
+
 end 
 
 

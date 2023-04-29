@@ -44,15 +44,16 @@ function t=measure_apd90(ap,o)
         title("ap.y(:,1) APD90")
         hold on 
         grid on
-        plot(ap.t(M_indexes(1)),ap.y(M_indexes(1),1),'o',linewidth=1)
-        plot(ap.t(M_indexes(2)),ap.y(M_indexes(2),1),'o',linewidth=1)
-        plot(ap.t(M_indexes(3)),ap.y(M_indexes(3),1),'o',linewidth=1)
-        plot(ap.t(N_indexes(1)),ap.y(N_indexes(1),1),'x',linewidth=2)
-        plot(ap.t(N_indexes(2)),ap.y(N_indexes(2),1),'x',linewidth=2)
-        plot(ap.t(N_indexes(3)),ap.y(N_indexes(3),1),'x',linewidth=2)
-        plot(ap.t(1),    rest_pot(1),'x',linewidth=2)
-        plot(ap.t(8002), rest_pot(2),'x',linewidth=2)
-        plot(ap.t(16003),rest_pot(3),'x',linewidth=2)
+
+        plot(ap.t(M_indexes(1)),ap.y(M_indexes(1),1),'o',linewidth==1)
+        plot(ap.t(M_indexes(2)),ap.y(M_indexes(2),1),'o',linewidth==1)
+        plot(ap.t(M_indexes(3)),ap.y(M_indexes(3),1),'o',linewidth==1)
+        plot(ap.t(N_indexes(1)),ap.y(N_indexes(1),1),'x',linewidth==2)
+        plot(ap.t(N_indexes(2)),ap.y(N_indexes(2),1),'x',linewidth==2)
+        plot(ap.t(N_indexes(3)),ap.y(N_indexes(3),1),'x',linewidth==2)
+        plot(ap.t(1),    rest_pot(1),'x',linewidth==2)
+        plot(ap.t(8002), rest_pot(2),'x',linewidth==2)
+        plot(ap.t(16003),rest_pot(3),'x',linewidth==2)
         
         vline(ap.t(8002), 'k--'); 
         vline(ap.t(1), 'k--'); 
@@ -63,6 +64,14 @@ function t=measure_apd90(ap,o)
         ylim([min(ap.y(:,1)),max(ap.y(:,1))]);
         xlim([min(ap.t),max(ap.t)]);
         
+
+        plot(M_indexes(1),M_values(1),'o',linewidth==1)
+        plot(M_indexes(2),M_values(2),'o',linewidth==1)
+        plot(M_indexes(3),M_values(3),'o',linewidth==1)
+        plot(N_indexes(1),N_values(1),'o',linewidth==1)
+        plot(N_indexes(2),N_values(2),'o',linewidth==1)
+        plot(N_indexes(3),N_values(3),'o',linewidth==1)
+
     end 
 end 
 
