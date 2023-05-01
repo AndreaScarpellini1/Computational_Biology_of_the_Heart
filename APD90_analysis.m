@@ -23,13 +23,6 @@ close all
 % Which is the difference in the alternance of the 3 APs for each subject
 % and for every dose.
 
-for j= 2:1:5        %for every dose
-    for i =1:1:10   %for every subject
-
-
-    end 
-end 
-
 %% Checking the second condition 
 % The second condition regards the abnormal repolarization of the AP for
 % every subject and for every dose. Do check this we perform a visual
@@ -57,50 +50,20 @@ for i=1:5:46
 
 % The third condition regards the abnormal prolongation of the third AP of 
 % each subject and dose regarding the control 
-% 
+% -------------------------------------------------------------------------
+dose={'100x','10x','1x','2x'};
+risk=[];
+for j= 1:1:4        %for every dose skipping the control  
+    flag=0;
+    for i =0:5:45  
+        if (abs(APD_90(j+i,3)-APD_90(i+5,3))>0.25*APD_90(i+5,3))
+            flag=flag+1;
+        end 
+    end 
+    fprintf('\n Pro-arrhythmic behavior probabilty - dose %s is: %4.2f%%, \n', [dose{j}],(flag/10)*100);
+    risk(j)=(flag/10)*100; %saving the risk 
+end 
 
- s=5;
- j=1;
- q=0;
- p=1;
- listi=[];
- probability=[];
- for i=1:1:10
-     for k= 1:1:5
-         if ((APD_90(k+q.*5,3) - APD_90(s.*i,3))>0.25*APD_90(s.*i,3))
-             listi(j,1)=APD_90(k+q*5,3);
-              probability(p,1)=1;
-             j=j+1;
-         else
-             probability(p,1)=0;
-         end
-         p=p+1;
-     end
-     q=q+1;
- end
- 
- dose1=0;
- dose2=0;
- dose3=0;
- dose4=0;
- 
- for i=1:5:50
- dose1= dose1 + probability(i,1);
- end
-  for i=2:5:50
- dose2= dose2 + probability(i,1);
-  end
-  for i=3:5:50
- dose3= dose3 + probability(i,1);
-  end
-  for i=4:5:50
- dose4= dose4 + probability(i,1);
-  end
- 
-fprintf('\n pro-arrhythmic behavior probabilty for dose1 is %d \n',(dose1./10).*100)
-fprintf('\n pro-arrhythmic behavior probabilty for dose2 is %d \n',(dose2./10).*100)
-fprintf('\n pro-arrhythmic behavior probabilty for dose3 is %d \n',(dose3./10).*100)
-fprintf('\n pro-arrhythmic behavior probabilty for dose4 is %d \n',(dose4./10).*100)
          
 %  for j= 2:1:5        %for every dose
 %     for i =1:1:10   %for every subject
