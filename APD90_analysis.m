@@ -14,11 +14,10 @@ for i=1:length(list)
 end
 %% measurement of APD 90
 for i =1:1:length(M_list)
-    APD_90(i,:)=measure_apd90(M_list(i),0);
-    %saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
+    APD_90(i,:)=measure_apd90(M_list(i),1);
+    saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
 end
 close all
-
 %% Cheking the first condition 
 % Which is the difference in the alternance of the 3 APs for each subject
 % and for every dose.
@@ -149,4 +148,3 @@ end
 %                  '\n================================='],...
 %             sum(m(j-1,:)==1)/length(m(j-1,:)))
 % end 
-% %%
