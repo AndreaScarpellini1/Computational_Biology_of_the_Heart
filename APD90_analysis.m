@@ -14,14 +14,63 @@ for i=1:length(list)
 end
 %% measurement of APD 90
 for i =1:1:length(M_list)
-    APD_90(i,:)=measure_apd90(M_list(i),1);
-    saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
+    APD_90(i,:)=measure_apd90(M_list(i),0);
+    %saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
 end
 close all
 %% Cheking the first condition 
 % Which is the difference in the alternance of the 3 APs for each subject
 % and for every dose.
+dose={'100x','10x','1x','2x'};
+for j= 1:1:4        %for every dose skipping the control  
+    flag=0;
+    for i =0:5:45  
+        if( (APD_90(i+j,1)-APD_90(i+j,2))/APD_90(i+j,1)>0.1 || ...
+            (APD_90(i+j,2)-APD_90(i+j,3))/APD_90(i+j,2)>0.1 )
+            flag=flag+1;
+            disp(flag)
+        end 
 
+    end 
+    fprintf('\n Pro-arrhythmic behavior probabilty - dose %s is: %4.2f%%, \n', [dose{j}],(flag/10)*100);
+end 
+%% Plot the standar deviation 
+figure()
+
+for j= 1:1:4      
+          subplot(2,2,j)
+          yyaxis left 
+          bar([ mean(APD_90(0+j,:)), ...
+                  mean(APD_90(5+j,:)), ...
+                  mean(APD_90(10+j,:)), ...
+                  mean(APD_90(15+j,:)), ...
+                  mean(APD_90(20+j,:)), ...
+                  mean(APD_90(25+j,:)), ...
+                  mean(APD_90(30+j,:)), ...
+                  mean(APD_90(35+j,:)), ...
+                  mean(APD_90(40+j,:)), ...
+                  mean(APD_90(45+j,:))]);
+          title(['Mean and Std - Dose',[dose{j}], ' - Sub specific ']);
+          hold on 
+          grid on 
+          ylim([0 400]);
+          ylabel("Time [ms]");
+
+          yyaxis right
+          plot([  std(APD_90(0+j,:)), ...
+                  std(APD_90(5+j,:)), ...
+                  std(APD_90(10+j,:)), ...
+                  std(APD_90(15+j,:)), ...
+                  std(APD_90(20+j,:)), ...
+                  std(APD_90(25+j,:)), ...
+                  std(APD_90(30+j,:)), ...
+                  std(APD_90(35+j,:)), ...
+                  std(APD_90(40+j,:)), ...
+                  std(APD_90(45+j,:))],'LineWidth',3);
+                  xlabel("# - Subjects");
+                  ylim([0 0.2])
+                  ylabel("Time [ms]");
+end 
 %% Checking the second condition 
 % The second condition regards the abnormal repolarization of the AP for
 % every subject and for every dose. Do check this we perform a visual
