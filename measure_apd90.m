@@ -1,9 +1,9 @@
 function t=measure_apd90(ap,o)
-%The ADP90 is a measurement of the action potential duration at 90%
-%repolarization.
+%The ADP90 is a measurement of the action potential duration  from the
+% beginning to the point at 90% of repolarization. 
 
-%Input: ap.y
-%       o :Option if you want to plot ==1
+%Input: ap.y --> struct type 
+%       o    --> Option if you want to plot ==1
 %Output: ADP90
     
     % Value and index of the max point
