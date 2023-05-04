@@ -1,9 +1,0 @@
-1- plots  all the physiological AP without drug for all 10 patients. loking at the shape
-
-2- find papers to check the pro-arrythmic behavior. 
-
-3- calculate the arrythmic risk (look at the notes)
-
-4- Plot the average (and standard deviation) of the APD90 as a function of the drug concentration.
-	
-5- The arrhythmic risk calculated as the probability of observing arrhythmic behavior over the ten models for each value of the concentration.

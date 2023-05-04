@@ -37,11 +37,11 @@ function t=measure_apd90(ap,o)
        abs(ap.t(8002)-ap.t(N_indexes(2)));
        abs(ap.t(16003)-ap.t(N_indexes(3)))];
 
-    
+   
     if (o==1)
         figure()
-        plot(ap.t,ap.y(:,1))
-        title("ap.y(:,1) APD90")
+        plot(ap.t,ap.y(:,1));
+        title([ap.name], 'Interpreter', 'none');
         hold on 
         grid on
 
