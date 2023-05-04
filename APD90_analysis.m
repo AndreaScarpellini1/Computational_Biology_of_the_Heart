@@ -25,8 +25,8 @@ dose={'100x','10x','1x','2x'};
 for j= 1:1:4        %for every dose skipping the control  
     flag=0;
     for i =0:5:45  
-        if( (APD_90(i+j,1)-APD_90(i+j,2))/APD_90(i+j,1)>0.1 || ...
-            (APD_90(i+j,2)-APD_90(i+j,3))/APD_90(i+j,2)>0.1 )
+        if( abs(APD_90(i+j,1)-APD_90(i+j,2))>10 || ...
+            abs(APD_90(i+j,2)-APD_90(i+j,3))>10 )
             flag=flag+1;
             disp(flag)
         end 
@@ -106,13 +106,33 @@ for j= 1:1:4        %for every dose skipping the control
     for i =0:5:45  
         if (abs(APD_90(j+i,3)-APD_90(i+5,3))>0.25*APD_90(i+5,3))
             flag=flag+1;
+            disp(j+i);
         end 
     end 
     fprintf('\n Pro-arrhythmic behavior probabilty - dose %s is: %4.2f%%, \n', [dose{j}],(flag/10)*100);
     risk(j)=(flag/10)*100; %saving the risk 
 end 
 
-         
+
+
+ %Taking the third AP
+ figure()
+ for i=1:1:5
+     subplot(1,5,i)
+     boxplot(APD_90{i}(:,3))
+     title(titles{i})
+     grid on 
+     box  on 
+     linkaxes
+ end 
+
+
+
+
+
+
+
+
 %  for j= 2:1:5        %for every dose
 %     for i =1:1:10   %for every subject
 % 
