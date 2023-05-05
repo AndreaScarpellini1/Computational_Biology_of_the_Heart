@@ -76,4 +76,11 @@ for j= 2:1:5        %for every dose skipping the control
     risk(j)=(flag/10)*100; %saving the risk 
 end 
 
-
+%% plot boxplot 
+titles=['ctrl','100','10','1','2'];
+for  i=1:1:5
+    subplot(1,4,i)
+    for j=i:5:length(M_list)
+        disp(M_list(i).name)
+    end 
+end 
