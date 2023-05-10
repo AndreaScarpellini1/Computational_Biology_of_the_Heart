@@ -37,7 +37,6 @@ end
 % The second condition regards the abnormal repolarization of the AP for
 % every subject and for every dose. Do check this we perform a visual
 % inspection. 
-
 s_name={'Sub 10','Sub 1','Sub 2','Sub 3','Sub 4','Sub 5','Sub 6','Sub 7','Sub 8','Sub 9'};
 index=0;
 for i=1:5:46 
@@ -54,7 +53,6 @@ for i=1:5:46
     legend("100x","10x","1x","2x","N")
  end 
  %it seems we have no abnormal repolarizatino within the subjects
-
 close all 
 %% Checking the third condition 
 

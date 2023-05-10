@@ -60,7 +60,7 @@ function t=measure_apd90(ap,o)
         plot(ap.t(dmax(1)),ap.y(dmax(1),1),'x','LineWidth',2)
         plot(ap.t(dmax(2)),ap.y(dmax(2),1),'x','LineWidth',2)
         plot(ap.t(dmax(3)),ap.y(dmax(3),1),'x','LineWidth',2)
-        
+
         vline(ap.t(dmax(1)), 'k--'); 
         vline(ap.t(dmax(2)), 'k--'); 
         vline(ap.t(dmax(3)), 'k--'); 
