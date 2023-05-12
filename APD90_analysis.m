@@ -14,8 +14,8 @@ for i=1:length(list)
 end
 %% measurement of APD 90
 for i =1:1:length(M_list)
-    APD_90(i,:)=measure_apd90(M_list(i),1);
-    saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
+    APD_90(i,:)=measure_apd90(M_list(i),0);
+    %saveas(figure(i), ['Plots_90/',[list(i).name],'.jpg'])
 end
 close all
 %% Cheking the first condition 
@@ -75,10 +75,40 @@ for j= 2:1:5        %for every dose skipping the control
 end 
 
 %% plot boxplot 
-titles=['ctrl','100','10','1','2'];
+names={'ctrl','100x','10x','1x','2x'};
+positions=[1 2 3 4 5];
+
+figure('Name','Box1')
+subplot(1,2,1)
+ax=gca;
 for  i=1:1:5
-    subplot(1,4,i)
-    for j=i:5:length(M_list)
-        disp(M_list(i).name)
-    end 
-end 
+    boxplot(APD_90(i:5:length(M_list),3),'Positions',positions(i),'Widths',0.5)
+    hold on
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+linkaxes 
+title("APD 90 -  All subjects distributions")
+
+subplot(1,2,2)
+data=APD_90;
+data(arr_indexes,:)=NaN;
+ax=gca;
+for  i=1:1:5
+    boxplot(data(i:5:length(M_list),3),'Positions',positions(i),'Widths',0.5)
+    hold on
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+linkaxes 
+title("APD 90 -  Non Arrhythmic subjects distributions")
+
+%%
