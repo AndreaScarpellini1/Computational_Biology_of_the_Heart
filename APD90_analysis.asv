@@ -178,9 +178,9 @@ ax=gca;
 for  i=1:1:5
     x = positions(i);
     y = data(i:5:length(M_list),3);
-    bar(x, mean(y(~isnan(y))), 0.8, 'LineWidth', 1.5, 'FaceColor', 'w', 'EdgeColor', 'k')
+    bar(x, mean(~isnan(y)), 0.8, 'LineWidth', 1.5, 'FaceColor', 'w', 'EdgeColor', 'k')
     hold on
-    errorbar(x, mean(y(~isnan(y))), std(y(~isnan(y))), 'k', 'LineWidth', 1.5, 'CapSize', 10);
+    errorbar(x, mean(~isnan(y)), std(~isnan(y)), 'k', 'LineWidth', 1.5, 'CapSize', 10);
 end
 xticks(ax, positions);
 xticklabels(ax, names);
