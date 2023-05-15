@@ -111,4 +111,89 @@ box on
 linkaxes 
 title("APD 90 -  Non Arrhythmic subjects distributions")
 
+%% Mean and standard deviation 
+names={'ctrl','100x','10x','1x','2x'};
+positions=[1 2 3 4 5];
+
+figure('Name','ErrorBars')
+subplot(1,2,1)
+ax=gca;
+for  i=1:1:5
+    x = positions(i);
+    y = APD_90(i:5:length(M_list),3);
+    errorbar(x, mean(y), std(y), 'o', 'LineWidth', 1.5, 'MarkerSize', 8, 'CapSize', 10);
+    hold on
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+title("APD 90 -  All subjects distributions")
+
+subplot(1,2,2)
+ax=gca;
+for  i=1:1:5
+    x = positions(i);
+    y = data(i:5:length(M_list),3);
+    errorbar(x, mean(y), std(y), 'o', 'LineWidth', 1.5, 'MarkerSize', 8, 'CapSize', 10);
+    hold on
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+linkaxes 
+title("APD 90 -  Non Arrhythmic subjects distributions")
 %%
+names={'ctrl','100x','10x','1x','2x'};
+positions=[1 2 3 4 5];
+
+figure('Name','BarPlot')
+subplot(1,2,1)
+ax=gca;
+for  i=1:1:5
+    x = positions(i);
+    y = APD_90(i:5:length(M_list),3);
+    bar(x, mean(y), 0.8, 'LineWidth', 1.5, 'FaceColor', 'w', 'EdgeColor', 'k')
+    hold on
+    errorbar(x, mean(y), std(y), 'k', 'LineWidth', 1.5, 'CapSize', 10);
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+linkaxes 
+title("APD 90 -  All subjects distributions")
+
+subplot(1,2,2)
+data=APD_90;
+data(arr_indexes,:)=NaN;
+ax=gca;
+for  i=1:1:5
+    x = positions(i);
+    y = data(i:5:length(M_list),3);
+    bar(x, mean(y), 0.8, 'LineWidth', 1.5, 'FaceColor', 'w', 'EdgeColor', 'k')
+    hold on
+    errorbar(x, mean(y), std(y), 'k', 'LineWidth', 1.5, 'CapSize', 10);
+end
+xticks(ax, positions);
+xticklabels(ax, names);
+grid on 
+ylabel("Time [ms]")
+xlabel("Doses")
+box on 
+linkaxes 
+title("APD 90 -  Non Arrhythmic subjects distributions")
+
+
+%%
+for i=1:1:5
+disp(M_list(i).name)
+disp(std(APD_90(i:5:length(M_list),3)))
+end
